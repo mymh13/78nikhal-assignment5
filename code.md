@@ -36,3 +36,35 @@ DÄR
     m.Movie_ID FINNSI (VÄLJ Movie_ID FRÅN ticket DÄR Ticket_price > 100);
 ```
   
+## Code example for above example for assignment 2 a - case 1  
+  
+```sql
+  CREATE VIEW HighSpendingCustomers AS
+SELECT 
+    c.Customer_ID, 
+    c.Customer_firstname, 
+    c.Customer_lastname, 
+    AVG(t.Ticket_price) AS AvgMonthlySpending
+FROM 
+    customer c
+JOIN 
+    customerticket ct ON c.Customer_ID = ct.Customer_ID
+JOIN 
+    ticket t ON ct.Ticket_ID = t.Ticket_ID
+WHERE 
+    YEAR(t.Ticket_purchasedate) = YEAR(CURDATE()) 
+GROUP BY 
+    c.Customer_ID, c.Customer_firstname, c.Customer_lastname
+HAVING 
+    AVG(t.Ticket_price) > 500;
+```
+  
+## Code example for above example for assignment 2 a - case 2  
+  
+```sql
+UPDATE customer
+SET discount = 0.10
+WHERE Customer_ID IN (
+    SELECT Customer_ID FROM HighSpendingCustomers
+);
+```
