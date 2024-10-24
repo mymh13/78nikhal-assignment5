@@ -68,3 +68,49 @@ WHERE Customer_ID IN (
     SELECT Customer_ID FROM HighSpendingCustomers
 );
 ```
+  
+## Code example for above example for assignment 2 b - admin table 
+  
+```sql
+CREATE TABLE admin (
+    Admin_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Admin_username VARCHAR(15),
+    Admin_email VARCHAR(50),
+    Admin_password VARCHAR(255),
+    IsSuperAdmin BOOLEAN DEFAULT FALSE
+);
+```
+  
+## Code example for above example for assignment 2 b - personal info
+  
+```sql
+CREATE TABLE personal_info (
+    Person_ID INT PRIMARY KEY AUTO_INCREMENT,
+    SocialSecNr VARCHAR(15),
+    Customer_ID INT NULL,
+    Admin_ID INT NULL,
+    FOREIGN KEY (Customer_ID) REFERENCES customer(Customer_ID),
+    FOREIGN KEY (Admin_ID) REFERENCES admin(Admin_ID)
+);
+```
+
+## Code example for above example for assignment 2 b - admin roles
+  
+```sql
+CREATE TABLE admin_roles (
+    Role_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Role_name VARCHAR(50)
+);
+```
+
+## Code example for above example for assignment 2 b - admin permissions
+  
+```sql
+CREATE TABLE admin_role_permissions (
+    Admin_ID INT,
+    Role_ID INT,
+    FOREIGN KEY (Admin_ID) REFERENCES admin(Admin_ID),
+    FOREIGN KEY (Role_ID) REFERENCES admin_roles(Role_ID),
+    PRIMARY KEY (Admin_ID, Role_ID)
+);
+```
