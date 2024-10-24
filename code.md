@@ -114,3 +114,64 @@ CREATE TABLE admin_role_permissions (
     PRIMARY KEY (Admin_ID, Role_ID)
 );
 ```
+
+## Code example for above example for assignment 3 a - example 1, category and embedded actor
+
+```json
+{
+  "_id": ObjectId("..."),
+  "title": "Inception",
+  "director": "Christopher Nolan",
+  "storyDescription": "A thief with the ability to enter people's dreams...",
+  "actors": [
+    {
+      "actor_id": ObjectId("..."),
+      "firstname": "Leonardo",
+      "lastname": "DiCaprio",
+      "birthdate": "1974-11-11"
+    },
+    {
+      "actor_id": ObjectId("..."),
+      "firstname": "Joseph",
+      "lastname": "Gordon-Levitt",
+      "birthdate": "1981-02-17"
+    }
+  ],
+  "categories": ["Sci-Fi", "Action"]
+}
+```
+  
+## Code example for above example for assignment 3 a - example 2, customer and ticket
+  
+```json
+{
+  "_id": ObjectId("..."),
+  "firstname": "John",
+  "lastname": "Doe",
+  "socialSecNr": "1234567890",
+  "tickets": [
+    {
+      "movie_id": ObjectId("..."),
+      "movie_title": "Inception",
+      "price": 120,
+      "purchaseDate": "2024-01-15"
+    },
+    {
+      "movie_id": ObjectId("..."),
+      "movie_title": "The Matrix",
+      "price": 110,
+      "purchaseDate": "2024-02-10"
+    }
+  ]
+}
+```
+
+## Code example for above example for assignment 3 b - actor-search through all movies
+  
+```javascript
+db.movie.find(
+  { "actors.actor_firstname": "Leonardo", "actors.actor_lastname": "DiCaprio" },
+  { "title": 1, "actors.$": 1 }
+)
+``` 
+  
